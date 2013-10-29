@@ -33,10 +33,10 @@ xdebug.cli_color=1
 xdebug.show_local_vars=1
 EOF
 
-# Apache Stuff
+echo "--- Enabling mod-rewrite ---"
 sudo a2enmod rewrite
 
-# Set root to public dir (assuming Laravel app)
+echo "--- Setting document root ---"
 sudo rm -rf /var/www
 sudo ln -fs /vagrant/public /var/www
 
