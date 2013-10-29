@@ -12,9 +12,6 @@ sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again p
 echo "--- Installing base packages ---"
 sudo apt-get install -y vim curl python-software-properties
 
-echo "--- Updating packages list ---"
-sudo apt-get update
-
 echo "--- We want the bleeding edge of PHP, right master? ---"
 sudo add-apt-repository -y ppa:ondrej/php5
 
