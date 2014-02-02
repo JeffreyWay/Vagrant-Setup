@@ -50,7 +50,7 @@ sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 echo "--- Restarting Apache ---"
 sudo service apache2 restart
 
-echo "--- Composer is the future. But you knew that, did you master? Nice job. ---"
+echo "--- Composer is the future. But you knew that, didn't you master? Nice job. ---"
 curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 
