@@ -14,7 +14,6 @@ sudo apt-get install -y vim curl python-software-properties
 
 #echo "--- We want the bleeding edge of PHP, right master? ---"
 #sudo add-apt-repository -y ppa:ondrej/php5
-
 #echo "--- Updating packages list ---"
 #sudo apt-get update
 
@@ -30,13 +29,20 @@ xdebug.cli_color=1
 xdebug.show_local_vars=1
 EOF
 
+echo "--- Enabling mcrypt in all environments ---"
+sudo php5enmod -s ALL mcrypt
+
 echo "--- Enabling mod-rewrite ---"
 sudo a2enmod rewrite
 
+# if the html directory isn't a link, then do something
+if [ ! -L /var/www/html ]; then
+# remove the default folder and replace with a link to the vagrant folder
+# really should do this with a vhost or something
 echo "--- Setting document root ---"
-sudo rm -rf /var/www
-sudo ln -fs /vagrant/public /var/www
-
+sudo rm -rf /var/www/html
+sudo ln -fs /vagrant/public /var/www/html
+fi
 
 echo "--- What developer codes without errors turned on? Not you, master. ---"
 sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php5/apache2/php.ini
