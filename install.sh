@@ -23,10 +23,21 @@ sudo apt-get install -y php5 apache2 libapache2-mod-php5 php5-curl php5-gd php5-
 echo "--- Installing and configuring Xdebug ---"
 sudo apt-get install -y php5-xdebug
 
-cat << EOF | sudo tee -a /etc/php5/mods-available/xdebug.ini
-xdebug.scream=1
+cat << EOF | sudo tee /etc/php5/mods-available/xdebug.ini
+zend_extension=xdebug.so
+
 xdebug.cli_color=1
 xdebug.show_local_vars=1
+xdebug.remote_enable=true
+xdebug.remote_connect_back=1
+xdebug.remote_port="9000"
+xdebug.idekey=phpstorm
+xdebug.scream = 0
+
+xdebug.profiler_enable = 0
+xdebug.profiler_enable_trigger = 0
+xdebug.profiler_output_dir = /vagrant/temp
+xdebug.profiler_output_name = cachegrind.out
 EOF
 
 echo "--- Enabling mcrypt in all environments ---"
@@ -44,6 +55,8 @@ sudo rm -rf /var/www/html
 sudo ln -fs /vagrant/public /var/www/html
 fi
 
+
+
 echo "--- What developer codes without errors turned on? Not you, master. ---"
 sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php5/apache2/php.ini
 sed -i "s/display_errors = .*/display_errors = On/" /etc/php5/apache2/php.ini
@@ -58,5 +71,6 @@ curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 
 # Laravel stuff here, if you want
+composer -d /vagrant install
 
 echo "--- All set to go! Would you like to play a game? ---"
