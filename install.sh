@@ -34,8 +34,8 @@ echo "--- Enabling mod-rewrite ---"
 sudo a2enmod rewrite
 
 echo "--- Setting document root ---"
-sudo rm -rf /var/www
-sudo ln -fs /vagrant/public /var/www
+sudo rm -rf /var/www/html
+sudo ln -fs /vagrant/public /var/www/html
 
 
 echo "--- What developer codes without errors turned on? Not you, master. ---"
